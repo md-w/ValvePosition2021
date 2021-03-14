@@ -5,8 +5,8 @@
  * Created on March 14, 2021, 2:46 PM
  */
 
-#ifndef TICK_H
-#define	TICK_H
+#ifndef TICK_KEYBOARD_H
+#define	TICK_KEYBOARD_H
 
 #include "mcc_generated_files/pin_manager.h"
 #include "mcc_generated_files/tmr0.h"
@@ -54,5 +54,5 @@ void TickUpdate(void);
 }
 #endif
 
-#endif	/* TICK_H */
+#endif	/* TICK_KEYBOARD_H */
 

@@ -42,7 +42,7 @@
  */
 
 #include "mcc_generated_files/mcc.h"
-#include "tick.h"
+#include "tick_keyboard.h"
 
 /*
                          Main application
