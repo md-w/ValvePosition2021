@@ -21,7 +21,7 @@ bool tick6min = 0;
 bool bToggleBitFast = 0;
 bool bToggleBitSlow = 0;
 
-void TickInit(void) {
+void TickKeyboardInit(void) {
     TMR0_SetInterruptHandler(TickUpdate);
 }
 

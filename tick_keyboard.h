@@ -47,7 +47,7 @@ extern bool bToggleBitSlow;
 #define UPKEY_MASK 		0x04
 #define DNKEY_MASK 		0x08
 
-void TickInit(void);
+void TickKeyboardInit(void);
 void TickUpdate(void);
 
 #ifdef	__cplusplus

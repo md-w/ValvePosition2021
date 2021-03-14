@@ -66,7 +66,7 @@ void main(void) {
 
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
-    TickInit();
+    TickKeyboardInit();
     while (1) {
         if (I_SW1_GetValue()) {
             O_REV_SetHigh();
