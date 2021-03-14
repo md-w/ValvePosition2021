@@ -135,7 +135,6 @@ void TMR0_Reload(void)
 
 void TMR0_ISR(void)
 {
-    static volatile uint16_t CountCallBack = 0;
 
     // clear the TMR0 interrupt flag
     INTCONbits.TMR0IF = 0;
@@ -145,15 +144,9 @@ void TMR0_ISR(void)
     TMR0H = timer0ReloadVal >> 8;
     TMR0L = (uint8_t) timer0ReloadVal;
 
-    // callback function - called every 2th pass
-    if (++CountCallBack >= TMR0_INTERRUPT_TICKER_FACTOR)
-    {
-        // ticker function call
-        TMR0_CallBack();
-
-        // reset ticker counter
-        CountCallBack = 0;
-    }
+    // ticker function call;
+    // ticker is 1 -> Callback function gets called every time this ISR executes
+    TMR0_CallBack();
 
     // add your TMR0 interrupt custom code
 }
