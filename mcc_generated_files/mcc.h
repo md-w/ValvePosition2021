@@ -53,9 +53,12 @@
 #include <stdbool.h>
 #include <conio.h>
 #include "interrupt_manager.h"
+#include "spi.h"
 #include "memory.h"
 #include "tmr0.h"
 #include "adc.h"
+#include "eusart.h"
+#include "drivers/spi_master.h"
 
 
 
