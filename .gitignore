@@ -1,5 +1,6 @@
 /build/
 /dist/
+/debug/
 /nbproject/private/
 nbproject/Makefile-genesis.properties
 nbproject/Makefile-default.mk
