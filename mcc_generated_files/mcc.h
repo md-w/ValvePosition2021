@@ -54,6 +54,7 @@
 #include <conio.h>
 #include "interrupt_manager.h"
 #include "tmr0.h"
+#include "adc.h"
 
 
 
