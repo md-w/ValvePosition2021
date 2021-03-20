@@ -43,6 +43,7 @@
 
 #include "mcc_generated_files/mcc.h"
 #include "tick_keyboard.h"
+#include "display_lcd.h"
 
 /*
                          Main application
@@ -67,7 +68,19 @@ void main(void) {
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
     TickKeyboardInit();
+    initLCD();
+    gotoRCLcd(0,0);
+	putsRomLCD((char*)"Power on test..");
+	gotoRCLcd(1,0);
+	putsRomLCD((char*)"...............");
+    int i = 0;
     while (1) {
+        if (tick1000mSec) {
+            tick1000mSec = 0;
+            i++;
+            gotoRCLcd(0,0);
+            putIntLCD((unsigned int)i, 3);
+        }
         if (I_SW1_GetValue()) {
             O_REV_SetHigh();
         } else {
