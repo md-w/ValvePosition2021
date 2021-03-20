@@ -75,13 +75,13 @@ void PIN_MANAGER_Initialize(void)
     /**
     ANSELx registers
     */
-    ANSEL = 0xFF;
-    ANSELH = 0x1F;
+    //ANSEL = 0xFF;
+    //ANSELH = 0x1F;
 
     /**
     WPUx registers
     */
-    WPUB = 0x00;
+    //WPUB = 0x00;
     INTCON2bits.nRBPU = 1;
 
 

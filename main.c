@@ -91,6 +91,7 @@ void main(void) {
         } else {
             O_FORWD_SetLow();
         }
+        ClrWdt();
     }
 }
 /**

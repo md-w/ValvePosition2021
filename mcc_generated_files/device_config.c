@@ -47,24 +47,26 @@
 // Configuration bits: selected in the GUI
 
 // CONFIG1H
-#pragma config FOSC = XT    // Oscillator Selection bits->XT oscillator
+//#pragma config FOSC = XT    // Oscillator Selection bits->XT oscillator
+
+#pragma config OSC = HS //INTIO67
+
 #pragma config FCMEN = OFF    // Fail-Safe Clock Monitor Enable bit->Fail-Safe Clock Monitor disabled
 #pragma config IESO = OFF    // Internal/External Oscillator Switchover bit->Oscillator Switchover mode disabled
 
 // CONFIG2L
-#pragma config PWRT = OFF    // Power-up Timer Enable bit->PWRT disabled
-#pragma config BOREN = SBORDIS    // Brown-out Reset Enable bits->Brown-out Reset enabled in hardware only (SBOREN is disabled)
-#pragma config BORV = 18    // Brown Out Reset Voltage bits->VBOR set to 1.8 V nominal
+#pragma config PWRT = ON    // Power-up Timer Enable bit->PWRT enabled
+#pragma config BOREN = ON    // Brown-out Reset Enable bits->Brown-out Reset enabled in hardware only (SBOREN is disabled)
+#pragma config BORV = 2    // Brown Out Reset Voltage bits->VBOR set to 2 V nominal
 
 // CONFIG2H
-#pragma config WDTEN = OFF    // Watchdog Timer Enable bit->WDT is controlled by SWDTEN bit of the WDTCON register
-#pragma config WDTPS = 32768    // Watchdog Timer Postscale Select bits->1:32768
+#pragma config WDT = OFF    // Watchdog Timer Enable bit->WDT is controlled by SWDTEN bit of the WDTCON register
+#pragma config WDTPS = 1024    // Watchdog Timer Postscale Select bits->1:32768
 
 // CONFIG3H
 #pragma config CCP2MX = PORTC    // CCP2 MUX bit->CCP2 input/output is multiplexed with RC1
-#pragma config PBADEN = ON    // PORTB A/D Enable bit->PORTB<4:0> pins are configured as analog input channels on Reset
+#pragma config PBADEN = OFF    // PORTB A/D Enable bit->PORTB<4:0> pins are configured as analog input channels on Reset
 #pragma config LPT1OSC = OFF    // Low-Power Timer1 Oscillator Enable bit->Timer1 configured for higher power operation
-#pragma config HFOFST = ON    // HFINTOSC Fast Start-up->HFINTOSC starts clocking the CPU without waiting for the oscillator to stablize.
 #pragma config MCLRE = ON    // MCLR Pin Enable bit->MCLR pin enabled; RE3 input pin disabled
 
 // CONFIG4L
@@ -74,10 +76,10 @@
 #pragma config DEBUG = OFF    // Background Debugger Enable bit->Background debugger disabled, RB6 and RB7 configured as general purpose I/O pins
 
 // CONFIG5L
-#pragma config CP0 = OFF    // Code Protection Block 0->Block 0 (000800-001FFFh) not code-protected
-#pragma config CP1 = OFF    // Code Protection Block 1->Block 1 (002000-003FFFh) not code-protected
-#pragma config CP2 = OFF    // Code Protection Block 2->Block 2 (004000-005FFFh) not code-protected
-#pragma config CP3 = OFF    // Code Protection Block 3->Block 3 (006000-007FFFh) not code-protected
+#pragma config CP0 = OFF     // Code Protection Block 0->Block 0 (000800-001FFFh) not code-protected
+#pragma config CP1 = OFF     // Code Protection Block 1->Block 1 (002000-003FFFh) not code-protected
+#pragma config CP2 = OFF     // Code Protection Block 2->Block 2 (004000-005FFFh) not code-protected
+#pragma config CP3 = OFF     // Code Protection Block 3->Block 3 (006000-007FFFh) not code-protected
 
 // CONFIG5H
 #pragma config CPB = OFF    // Boot Block Code Protection bit->Boot block (000000-0007FFh) not code-protected
