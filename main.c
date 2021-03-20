@@ -74,6 +74,7 @@ void main(void) {
 	gotoRCLcd(1,0);
 	putsRomLCD((char*)"...............");
     int i = 0;
+    bool bToggleBit = false;
     while (1) {
         if (tick1000mSec) {
             tick1000mSec = 0;
@@ -81,6 +82,7 @@ void main(void) {
             gotoRCLcd(0,0);
             putIntLCD((unsigned int)i, 3);
         }
+        
         if (I_SW1_GetValue()) {
             O_REV_SetHigh();
         } else {
@@ -88,8 +90,12 @@ void main(void) {
         }
         if (bToggleBitSlow) {
             O_FORWD_SetHigh();
+            directAndWithDisplayLED(0x0A, 0);
+            displayShift();            
         } else {
             O_FORWD_SetLow();
+            directAndWithDisplayLED(0x05, 0);
+            displayShift();
         }
     }
 }

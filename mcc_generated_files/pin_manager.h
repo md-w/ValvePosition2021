@@ -271,27 +271,16 @@
 #define I_SW4_SetDigitalInput()    do { TRISDbits.TRISD4 = 1; } while(0)
 #define I_SW4_SetDigitalOutput()   do { TRISDbits.TRISD4 = 0; } while(0)
 
-// get/set O_LCD_CLK aliases
-#define O_LCD_CLK_TRIS                 TRISDbits.TRISD5
-#define O_LCD_CLK_LAT                  LATDbits.LATD5
-#define O_LCD_CLK_PORT                 PORTDbits.RD5
-#define O_LCD_CLK_SetHigh()            do { LATDbits.LATD5 = 1; } while(0)
-#define O_LCD_CLK_SetLow()             do { LATDbits.LATD5 = 0; } while(0)
-#define O_LCD_CLK_Toggle()             do { LATDbits.LATD5 = ~LATDbits.LATD5; } while(0)
-#define O_LCD_CLK_GetValue()           PORTDbits.RD5
-#define O_LCD_CLK_SetDigitalInput()    do { TRISDbits.TRISD5 = 1; } while(0)
-#define O_LCD_CLK_SetDigitalOutput()   do { TRISDbits.TRISD5 = 0; } while(0)
-
-// get/set O_LCD_DATA aliases
-#define O_LCD_DATA_TRIS                 TRISDbits.TRISD6
-#define O_LCD_DATA_LAT                  LATDbits.LATD6
-#define O_LCD_DATA_PORT                 PORTDbits.RD6
-#define O_LCD_DATA_SetHigh()            do { LATDbits.LATD6 = 1; } while(0)
-#define O_LCD_DATA_SetLow()             do { LATDbits.LATD6 = 0; } while(0)
-#define O_LCD_DATA_Toggle()             do { LATDbits.LATD6 = ~LATDbits.LATD6; } while(0)
-#define O_LCD_DATA_GetValue()           PORTDbits.RD6
-#define O_LCD_DATA_SetDigitalInput()    do { TRISDbits.TRISD6 = 1; } while(0)
-#define O_LCD_DATA_SetDigitalOutput()   do { TRISDbits.TRISD6 = 0; } while(0)
+// get/set O_LCD_EN aliases
+#define O_LCD_EN_TRIS                 TRISDbits.TRISD6
+#define O_LCD_EN_LAT                  LATDbits.LATD6
+#define O_LCD_EN_PORT                 PORTDbits.RD6
+#define O_LCD_EN_SetHigh()            do { LATDbits.LATD6 = 1; } while(0)
+#define O_LCD_EN_SetLow()             do { LATDbits.LATD6 = 0; } while(0)
+#define O_LCD_EN_Toggle()             do { LATDbits.LATD6 = ~LATDbits.LATD6; } while(0)
+#define O_LCD_EN_GetValue()           PORTDbits.RD6
+#define O_LCD_EN_SetDigitalInput()    do { TRISDbits.TRISD6 = 1; } while(0)
+#define O_LCD_EN_SetDigitalOutput()   do { TRISDbits.TRISD6 = 0; } while(0)
 
 // get/set O_LCD_STRB aliases
 #define O_LCD_STRB_TRIS                 TRISDbits.TRISD7
