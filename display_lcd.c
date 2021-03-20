@@ -4,17 +4,18 @@
 #include "mcc_generated_files/delay.h"
 
 unsigned char dispBuffer[DISP_MODULE_SIZE] = {0,};
-#define SPIEnableLCD()		O_LCD_STRB_SetLow()
-#define SPIDisableLCD()		O_LCD_STRB_SetHigh()
+
+#define EnableLCD() 		O_LCD_EN_SetHigh()
+#define DisableLCD()		O_LCD_EN_SetLow()
 
 void SPIStrobeLCD(void) {
-    SPIEnableLCD();
+    O_LCD_STRB_SetHigh();
     DELAY_microseconds(32);
-    SPIDisableLCD();
+    O_LCD_STRB_SetLow();
 }
 
 void displayShiftInit(void) {
-    SPIDisableLCD();
+    DisableLCD();
     SPI_Initialize();
     SPI_Open(MASTER0_CONFIG);
 }
@@ -22,6 +23,9 @@ void displayShiftInit(void) {
 void displayShift(void) {
     SPI_WriteBlock(dispBuffer, DISP_MODULE_SIZE);
     SPIStrobeLCD();
+    EnableLCD();
+	DELAY_milliseconds(2);
+	DisableLCD();
 }
 
 void directAssignLCD(unsigned char segmentValue, unsigned char digitNo) {
@@ -52,7 +56,7 @@ void sendCommandByteToLCD(unsigned char commandByte) {
 
 void sendDataByteToLCD(unsigned char dataByte) {
     dispBuffer[0 + LCD_DISP_OFFSET] = dataByte;
-    dispBuffer[1 + LCD_DISP_OFFSET] &= ~0x80;
+    dispBuffer[1 + LCD_DISP_OFFSET] |= ~0x80;
     displayShift();
 }
 
@@ -80,14 +84,12 @@ void resetLCD16x2(void) {
     //	DelayMs(5);
     //	sendCommandByteToLCD(0x38);
     //	DelayMs(5);
-    SPIDisableLCD();
     dispBuffer[1 + LCD_DISP_OFFSET] |= 0x40;
     displayShift();
     DELAY_milliseconds(20);
     dispBuffer[1 + LCD_DISP_OFFSET] &= ~0x40;
     displayShift();
     DELAY_milliseconds(5);
-    //SPIEnableLCD();
     sendCommandByteToLCD(0x38);
     DELAY_milliseconds(5);
     sendCommandByteToLCD(0x38);
