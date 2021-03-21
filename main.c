@@ -677,12 +677,103 @@ void inputScanTask(void) {
     ADC_StartConversion();
 }
 
+void initOutput() {
+
+}
+
 void DigitalInputScan(void) {
+    if (!I_FORWD_GetValue()) {
+        SystemStatus.sw.bits.isSwForwardCommand = 1;
+    } else {
+        SystemStatus.sw.bits.isSwForwardCommand = 0;
+    }
+    if (!I_REV_GetValue()) {
+        SystemStatus.sw.bits.isSwReverseCommand = 1;
+    } else {
+        SystemStatus.sw.bits.isSwReverseCommand = 0;
+    }
+    if (!I_STOP_GetValue()) {
+        SystemStatus.sw.bits.isSwStopCommand = 1;
+    } else {
+        SystemStatus.sw.bits.isSwStopCommand = 0;
+    }
+    if (!I_TORQUE_FULL_OPEN_GetValue()) {
+        SystemStatus.digital.bits.isTorqueFullOpen = 1;
+    } else {
+        SystemStatus.digital.bits.isTorqueFullOpen = 0;
+    }
+
+    if (!I_TORQUE_FULL_CLOSE_GetValue()) {
+        SystemStatus.digital.bits.isTorqueFullClose = 1;
+    } else {
+        SystemStatus.digital.bits.isTorqueFullClose = 0;
+    }
+
+    if (!I_VALVE_FULL_OPEN_GetValue()) {
+        SystemStatus.digital.bits.isValveFullOpen = 1;
+    } else {
+        SystemStatus.digital.bits.isValveFullOpen = 0;
+    }
+
+    if (!I_VALVE_FULL_CLOSE_GetValue()) {
+        SystemStatus.digital.bits.isValveFullClose = 1;
+    } else {
+        SystemStatus.digital.bits.isValveFullClose = 0;
+    }
+
+    if (!I_AUTO_MAN_GetValue()) {
+        SystemStatus.digital.bits.isRemoteOrLocalMode = 1;
+    } else {
+        SystemStatus.digital.bits.isRemoteOrLocalMode = 0;
+    }
+
+    if (!I_MOTOR_TRIP_GetValue()) {
+        SystemStatus.digital.bits.isMotorTempTrip = 1;
+    } else {
+        SystemStatus.digital.bits.isMotorTempTrip = 0;
+    }
+
+    if (!I_MOTOR_OL_GetValue()) {
+        SystemStatus.digital.bits.isMotorOL = 1;
+    } else {
+        SystemStatus.digital.bits.isMotorOL = 0;
+    }
+
+    if (!I_PLC_FORWD_GetValue()) {
+        SystemStatus.plc.bits.isPlcForwardCommand = 1;
+    } else {
+        SystemStatus.plc.bits.isPlcForwardCommand = 0;
+    }
+    if (!I_PLC_FORWD_GetValue()) {
+        SystemStatus.plc.bits.isPlcReverseCommand = 1;
+    } else {
+        SystemStatus.plc.bits.isPlcReverseCommand = 0;
+    }
+    if (!I_PLC_STOP_GetValue()) {
+        SystemStatus.plc.bits.isPlcStopCommand = 1;
+    } else {
+        SystemStatus.plc.bits.isPlcStopCommand = 0;
+    }
 
 }
 
 void SystemOutput(void) {
-
+    if (SystemStatus.status.bits.isMoveForward) {
+//        O_ = 1;
+//        RELAY_OUT_REVERSE = 0;
+    } else if (SystemStatus.status.bits.isMoveReverse) {
+//        RELAY_OUT_FORWARD = 0;
+//        RELAY_OUT_REVERSE = 1;
+    } else {
+//        RELAY_OUT_FORWARD = 0;
+//        RELAY_OUT_REVERSE = 0;
+        //SystemStatus.status.bits.isStop = 1;
+    }
+    if (SystemStatus.digital.bits.isRemoteOrLocalMode) {
+        O_AUTO_MAN_SetHigh();
+    } else {
+        O_AUTO_MAN_SetLow();
+    }
 }
 
 void LEDOutput(void) {

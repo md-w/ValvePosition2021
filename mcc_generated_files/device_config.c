@@ -76,10 +76,10 @@
 #pragma config DEBUG = OFF    // Background Debugger Enable bit->Background debugger disabled, RB6 and RB7 configured as general purpose I/O pins
 
 // CONFIG5L
-#pragma config CP0 = OFF     // Code Protection Block 0->Block 0 (000800-001FFFh) not code-protected
-#pragma config CP1 = OFF     // Code Protection Block 1->Block 1 (002000-003FFFh) not code-protected
-#pragma config CP2 = OFF     // Code Protection Block 2->Block 2 (004000-005FFFh) not code-protected
-#pragma config CP3 = OFF     // Code Protection Block 3->Block 3 (006000-007FFFh) not code-protected
+#pragma config CP0 = OFF    // Code Protection Block 0->Block 0 (000800-001FFFh) not code-protected
+#pragma config CP1 = OFF    // Code Protection Block 1->Block 1 (002000-003FFFh) not code-protected
+#pragma config CP2 = OFF    // Code Protection Block 2->Block 2 (004000-005FFFh) not code-protected
+#pragma config CP3 = OFF    // Code Protection Block 3->Block 3 (006000-007FFFh) not code-protected
 
 // CONFIG5H
 #pragma config CPB = OFF    // Boot Block Code Protection bit->Boot block (000000-0007FFh) not code-protected

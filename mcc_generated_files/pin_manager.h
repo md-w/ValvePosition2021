@@ -117,64 +117,179 @@
 #define RA3_SetAnalogMode()         do { ANSELbits.ANS3 = 1; } while(0)
 #define RA3_SetDigitalMode()        do { ANSELbits.ANS3 = 0; } while(0)
 
-// get/set O_AUTO_MAN aliases
-#define O_AUTO_MAN_TRIS                 TRISBbits.TRISB4
-#define O_AUTO_MAN_LAT                  LATBbits.LATB4
-#define O_AUTO_MAN_PORT                 PORTBbits.RB4
-#define O_AUTO_MAN_WPU                  WPUBbits.WPUB4
-#define O_AUTO_MAN_ANS                  ANSELHbits.ANS11
-#define O_AUTO_MAN_SetHigh()            do { LATBbits.LATB4 = 1; } while(0)
-#define O_AUTO_MAN_SetLow()             do { LATBbits.LATB4 = 0; } while(0)
-#define O_AUTO_MAN_Toggle()             do { LATBbits.LATB4 = ~LATBbits.LATB4; } while(0)
-#define O_AUTO_MAN_GetValue()           PORTBbits.RB4
-#define O_AUTO_MAN_SetDigitalInput()    do { TRISBbits.TRISB4 = 1; } while(0)
-#define O_AUTO_MAN_SetDigitalOutput()   do { TRISBbits.TRISB4 = 0; } while(0)
-#define O_AUTO_MAN_SetPullup()          do { WPUBbits.WPUB4 = 1; } while(0)
-#define O_AUTO_MAN_ResetPullup()        do { WPUBbits.WPUB4 = 0; } while(0)
-#define O_AUTO_MAN_SetAnalogMode()      do { ANSELHbits.ANS11 = 1; } while(0)
-#define O_AUTO_MAN_SetDigitalMode()     do { ANSELHbits.ANS11 = 0; } while(0)
+// get/set I_PLC_FORWD aliases
+#define I_PLC_FORWD_TRIS                 TRISAbits.TRISA5
+#define I_PLC_FORWD_LAT                  LATAbits.LATA5
+#define I_PLC_FORWD_PORT                 PORTAbits.RA5
+#define I_PLC_FORWD_ANS                  ANSELbits.ANS4
+#define I_PLC_FORWD_SetHigh()            do { LATAbits.LATA5 = 1; } while(0)
+#define I_PLC_FORWD_SetLow()             do { LATAbits.LATA5 = 0; } while(0)
+#define I_PLC_FORWD_Toggle()             do { LATAbits.LATA5 = ~LATAbits.LATA5; } while(0)
+#define I_PLC_FORWD_GetValue()           PORTAbits.RA5
+#define I_PLC_FORWD_SetDigitalInput()    do { TRISAbits.TRISA5 = 1; } while(0)
+#define I_PLC_FORWD_SetDigitalOutput()   do { TRISAbits.TRISA5 = 0; } while(0)
+#define I_PLC_FORWD_SetAnalogMode()      do { ANSELbits.ANS4 = 1; } while(0)
+#define I_PLC_FORWD_SetDigitalMode()     do { ANSELbits.ANS4 = 0; } while(0)
 
-// get/set O_STOP aliases
-#define O_STOP_TRIS                 TRISBbits.TRISB5
-#define O_STOP_LAT                  LATBbits.LATB5
-#define O_STOP_PORT                 PORTBbits.RB5
-#define O_STOP_WPU                  WPUBbits.WPUB5
-#define O_STOP_SetHigh()            do { LATBbits.LATB5 = 1; } while(0)
-#define O_STOP_SetLow()             do { LATBbits.LATB5 = 0; } while(0)
-#define O_STOP_Toggle()             do { LATBbits.LATB5 = ~LATBbits.LATB5; } while(0)
-#define O_STOP_GetValue()           PORTBbits.RB5
-#define O_STOP_SetDigitalInput()    do { TRISBbits.TRISB5 = 1; } while(0)
-#define O_STOP_SetDigitalOutput()   do { TRISBbits.TRISB5 = 0; } while(0)
-#define O_STOP_SetPullup()          do { WPUBbits.WPUB5 = 1; } while(0)
-#define O_STOP_ResetPullup()        do { WPUBbits.WPUB5 = 0; } while(0)
+// get/set I_TORQUE_FULL_CLOSE aliases
+#define I_TORQUE_FULL_CLOSE_TRIS                 TRISBbits.TRISB0
+#define I_TORQUE_FULL_CLOSE_LAT                  LATBbits.LATB0
+#define I_TORQUE_FULL_CLOSE_PORT                 PORTBbits.RB0
+#define I_TORQUE_FULL_CLOSE_WPU                  WPUBbits.WPUB0
+#define I_TORQUE_FULL_CLOSE_ANS                  ANSELHbits.ANS12
+#define I_TORQUE_FULL_CLOSE_SetHigh()            do { LATBbits.LATB0 = 1; } while(0)
+#define I_TORQUE_FULL_CLOSE_SetLow()             do { LATBbits.LATB0 = 0; } while(0)
+#define I_TORQUE_FULL_CLOSE_Toggle()             do { LATBbits.LATB0 = ~LATBbits.LATB0; } while(0)
+#define I_TORQUE_FULL_CLOSE_GetValue()           PORTBbits.RB0
+#define I_TORQUE_FULL_CLOSE_SetDigitalInput()    do { TRISBbits.TRISB0 = 1; } while(0)
+#define I_TORQUE_FULL_CLOSE_SetDigitalOutput()   do { TRISBbits.TRISB0 = 0; } while(0)
+#define I_TORQUE_FULL_CLOSE_SetPullup()          do { WPUBbits.WPUB0 = 1; } while(0)
+#define I_TORQUE_FULL_CLOSE_ResetPullup()        do { WPUBbits.WPUB0 = 0; } while(0)
+#define I_TORQUE_FULL_CLOSE_SetAnalogMode()      do { ANSELHbits.ANS12 = 1; } while(0)
+#define I_TORQUE_FULL_CLOSE_SetDigitalMode()     do { ANSELHbits.ANS12 = 0; } while(0)
 
-// get/set O_REV aliases
-#define O_REV_TRIS                 TRISBbits.TRISB6
-#define O_REV_LAT                  LATBbits.LATB6
-#define O_REV_PORT                 PORTBbits.RB6
-#define O_REV_WPU                  WPUBbits.WPUB6
-#define O_REV_SetHigh()            do { LATBbits.LATB6 = 1; } while(0)
-#define O_REV_SetLow()             do { LATBbits.LATB6 = 0; } while(0)
-#define O_REV_Toggle()             do { LATBbits.LATB6 = ~LATBbits.LATB6; } while(0)
-#define O_REV_GetValue()           PORTBbits.RB6
-#define O_REV_SetDigitalInput()    do { TRISBbits.TRISB6 = 1; } while(0)
-#define O_REV_SetDigitalOutput()   do { TRISBbits.TRISB6 = 0; } while(0)
-#define O_REV_SetPullup()          do { WPUBbits.WPUB6 = 1; } while(0)
-#define O_REV_ResetPullup()        do { WPUBbits.WPUB6 = 0; } while(0)
+// get/set I_TORQUE_FULL_OPEN aliases
+#define I_TORQUE_FULL_OPEN_TRIS                 TRISBbits.TRISB1
+#define I_TORQUE_FULL_OPEN_LAT                  LATBbits.LATB1
+#define I_TORQUE_FULL_OPEN_PORT                 PORTBbits.RB1
+#define I_TORQUE_FULL_OPEN_WPU                  WPUBbits.WPUB1
+#define I_TORQUE_FULL_OPEN_ANS                  ANSELHbits.ANS10
+#define I_TORQUE_FULL_OPEN_SetHigh()            do { LATBbits.LATB1 = 1; } while(0)
+#define I_TORQUE_FULL_OPEN_SetLow()             do { LATBbits.LATB1 = 0; } while(0)
+#define I_TORQUE_FULL_OPEN_Toggle()             do { LATBbits.LATB1 = ~LATBbits.LATB1; } while(0)
+#define I_TORQUE_FULL_OPEN_GetValue()           PORTBbits.RB1
+#define I_TORQUE_FULL_OPEN_SetDigitalInput()    do { TRISBbits.TRISB1 = 1; } while(0)
+#define I_TORQUE_FULL_OPEN_SetDigitalOutput()   do { TRISBbits.TRISB1 = 0; } while(0)
+#define I_TORQUE_FULL_OPEN_SetPullup()          do { WPUBbits.WPUB1 = 1; } while(0)
+#define I_TORQUE_FULL_OPEN_ResetPullup()        do { WPUBbits.WPUB1 = 0; } while(0)
+#define I_TORQUE_FULL_OPEN_SetAnalogMode()      do { ANSELHbits.ANS10 = 1; } while(0)
+#define I_TORQUE_FULL_OPEN_SetDigitalMode()     do { ANSELHbits.ANS10 = 0; } while(0)
 
-// get/set O_FORWD aliases
-#define O_FORWD_TRIS                 TRISBbits.TRISB7
-#define O_FORWD_LAT                  LATBbits.LATB7
-#define O_FORWD_PORT                 PORTBbits.RB7
-#define O_FORWD_WPU                  WPUBbits.WPUB7
-#define O_FORWD_SetHigh()            do { LATBbits.LATB7 = 1; } while(0)
-#define O_FORWD_SetLow()             do { LATBbits.LATB7 = 0; } while(0)
-#define O_FORWD_Toggle()             do { LATBbits.LATB7 = ~LATBbits.LATB7; } while(0)
-#define O_FORWD_GetValue()           PORTBbits.RB7
-#define O_FORWD_SetDigitalInput()    do { TRISBbits.TRISB7 = 1; } while(0)
-#define O_FORWD_SetDigitalOutput()   do { TRISBbits.TRISB7 = 0; } while(0)
-#define O_FORWD_SetPullup()          do { WPUBbits.WPUB7 = 1; } while(0)
-#define O_FORWD_ResetPullup()        do { WPUBbits.WPUB7 = 0; } while(0)
+// get/set I_VALVE_FULL_CLOSE aliases
+#define I_VALVE_FULL_CLOSE_TRIS                 TRISBbits.TRISB2
+#define I_VALVE_FULL_CLOSE_LAT                  LATBbits.LATB2
+#define I_VALVE_FULL_CLOSE_PORT                 PORTBbits.RB2
+#define I_VALVE_FULL_CLOSE_WPU                  WPUBbits.WPUB2
+#define I_VALVE_FULL_CLOSE_ANS                  ANSELHbits.ANS8
+#define I_VALVE_FULL_CLOSE_SetHigh()            do { LATBbits.LATB2 = 1; } while(0)
+#define I_VALVE_FULL_CLOSE_SetLow()             do { LATBbits.LATB2 = 0; } while(0)
+#define I_VALVE_FULL_CLOSE_Toggle()             do { LATBbits.LATB2 = ~LATBbits.LATB2; } while(0)
+#define I_VALVE_FULL_CLOSE_GetValue()           PORTBbits.RB2
+#define I_VALVE_FULL_CLOSE_SetDigitalInput()    do { TRISBbits.TRISB2 = 1; } while(0)
+#define I_VALVE_FULL_CLOSE_SetDigitalOutput()   do { TRISBbits.TRISB2 = 0; } while(0)
+#define I_VALVE_FULL_CLOSE_SetPullup()          do { WPUBbits.WPUB2 = 1; } while(0)
+#define I_VALVE_FULL_CLOSE_ResetPullup()        do { WPUBbits.WPUB2 = 0; } while(0)
+#define I_VALVE_FULL_CLOSE_SetAnalogMode()      do { ANSELHbits.ANS8 = 1; } while(0)
+#define I_VALVE_FULL_CLOSE_SetDigitalMode()     do { ANSELHbits.ANS8 = 0; } while(0)
+
+// get/set I_VALVE_FULL_OPEN aliases
+#define I_VALVE_FULL_OPEN_TRIS                 TRISBbits.TRISB3
+#define I_VALVE_FULL_OPEN_LAT                  LATBbits.LATB3
+#define I_VALVE_FULL_OPEN_PORT                 PORTBbits.RB3
+#define I_VALVE_FULL_OPEN_WPU                  WPUBbits.WPUB3
+#define I_VALVE_FULL_OPEN_ANS                  ANSELHbits.ANS9
+#define I_VALVE_FULL_OPEN_SetHigh()            do { LATBbits.LATB3 = 1; } while(0)
+#define I_VALVE_FULL_OPEN_SetLow()             do { LATBbits.LATB3 = 0; } while(0)
+#define I_VALVE_FULL_OPEN_Toggle()             do { LATBbits.LATB3 = ~LATBbits.LATB3; } while(0)
+#define I_VALVE_FULL_OPEN_GetValue()           PORTBbits.RB3
+#define I_VALVE_FULL_OPEN_SetDigitalInput()    do { TRISBbits.TRISB3 = 1; } while(0)
+#define I_VALVE_FULL_OPEN_SetDigitalOutput()   do { TRISBbits.TRISB3 = 0; } while(0)
+#define I_VALVE_FULL_OPEN_SetPullup()          do { WPUBbits.WPUB3 = 1; } while(0)
+#define I_VALVE_FULL_OPEN_ResetPullup()        do { WPUBbits.WPUB3 = 0; } while(0)
+#define I_VALVE_FULL_OPEN_SetAnalogMode()      do { ANSELHbits.ANS9 = 1; } while(0)
+#define I_VALVE_FULL_OPEN_SetDigitalMode()     do { ANSELHbits.ANS9 = 0; } while(0)
+
+// get/set I_AUTO_MAN aliases
+#define I_AUTO_MAN_TRIS                 TRISBbits.TRISB4
+#define I_AUTO_MAN_LAT                  LATBbits.LATB4
+#define I_AUTO_MAN_PORT                 PORTBbits.RB4
+#define I_AUTO_MAN_WPU                  WPUBbits.WPUB4
+#define I_AUTO_MAN_ANS                  ANSELHbits.ANS11
+#define I_AUTO_MAN_SetHigh()            do { LATBbits.LATB4 = 1; } while(0)
+#define I_AUTO_MAN_SetLow()             do { LATBbits.LATB4 = 0; } while(0)
+#define I_AUTO_MAN_Toggle()             do { LATBbits.LATB4 = ~LATBbits.LATB4; } while(0)
+#define I_AUTO_MAN_GetValue()           PORTBbits.RB4
+#define I_AUTO_MAN_SetDigitalInput()    do { TRISBbits.TRISB4 = 1; } while(0)
+#define I_AUTO_MAN_SetDigitalOutput()   do { TRISBbits.TRISB4 = 0; } while(0)
+#define I_AUTO_MAN_SetPullup()          do { WPUBbits.WPUB4 = 1; } while(0)
+#define I_AUTO_MAN_ResetPullup()        do { WPUBbits.WPUB4 = 0; } while(0)
+#define I_AUTO_MAN_SetAnalogMode()      do { ANSELHbits.ANS11 = 1; } while(0)
+#define I_AUTO_MAN_SetDigitalMode()     do { ANSELHbits.ANS11 = 0; } while(0)
+
+// get/set I_STOP aliases
+#define I_STOP_TRIS                 TRISBbits.TRISB5
+#define I_STOP_LAT                  LATBbits.LATB5
+#define I_STOP_PORT                 PORTBbits.RB5
+#define I_STOP_WPU                  WPUBbits.WPUB5
+#define I_STOP_SetHigh()            do { LATBbits.LATB5 = 1; } while(0)
+#define I_STOP_SetLow()             do { LATBbits.LATB5 = 0; } while(0)
+#define I_STOP_Toggle()             do { LATBbits.LATB5 = ~LATBbits.LATB5; } while(0)
+#define I_STOP_GetValue()           PORTBbits.RB5
+#define I_STOP_SetDigitalInput()    do { TRISBbits.TRISB5 = 1; } while(0)
+#define I_STOP_SetDigitalOutput()   do { TRISBbits.TRISB5 = 0; } while(0)
+#define I_STOP_SetPullup()          do { WPUBbits.WPUB5 = 1; } while(0)
+#define I_STOP_ResetPullup()        do { WPUBbits.WPUB5 = 0; } while(0)
+
+// get/set I_REV aliases
+#define I_REV_TRIS                 TRISBbits.TRISB6
+#define I_REV_LAT                  LATBbits.LATB6
+#define I_REV_PORT                 PORTBbits.RB6
+#define I_REV_WPU                  WPUBbits.WPUB6
+#define I_REV_SetHigh()            do { LATBbits.LATB6 = 1; } while(0)
+#define I_REV_SetLow()             do { LATBbits.LATB6 = 0; } while(0)
+#define I_REV_Toggle()             do { LATBbits.LATB6 = ~LATBbits.LATB6; } while(0)
+#define I_REV_GetValue()           PORTBbits.RB6
+#define I_REV_SetDigitalInput()    do { TRISBbits.TRISB6 = 1; } while(0)
+#define I_REV_SetDigitalOutput()   do { TRISBbits.TRISB6 = 0; } while(0)
+#define I_REV_SetPullup()          do { WPUBbits.WPUB6 = 1; } while(0)
+#define I_REV_ResetPullup()        do { WPUBbits.WPUB6 = 0; } while(0)
+
+// get/set I_FORWD aliases
+#define I_FORWD_TRIS                 TRISBbits.TRISB7
+#define I_FORWD_LAT                  LATBbits.LATB7
+#define I_FORWD_PORT                 PORTBbits.RB7
+#define I_FORWD_WPU                  WPUBbits.WPUB7
+#define I_FORWD_SetHigh()            do { LATBbits.LATB7 = 1; } while(0)
+#define I_FORWD_SetLow()             do { LATBbits.LATB7 = 0; } while(0)
+#define I_FORWD_Toggle()             do { LATBbits.LATB7 = ~LATBbits.LATB7; } while(0)
+#define I_FORWD_GetValue()           PORTBbits.RB7
+#define I_FORWD_SetDigitalInput()    do { TRISBbits.TRISB7 = 1; } while(0)
+#define I_FORWD_SetDigitalOutput()   do { TRISBbits.TRISB7 = 0; } while(0)
+#define I_FORWD_SetPullup()          do { WPUBbits.WPUB7 = 1; } while(0)
+#define I_FORWD_ResetPullup()        do { WPUBbits.WPUB7 = 0; } while(0)
+
+// get/set I_MOTOR_OL aliases
+#define I_MOTOR_OL_TRIS                 TRISCbits.TRISC0
+#define I_MOTOR_OL_LAT                  LATCbits.LATC0
+#define I_MOTOR_OL_PORT                 PORTCbits.RC0
+#define I_MOTOR_OL_SetHigh()            do { LATCbits.LATC0 = 1; } while(0)
+#define I_MOTOR_OL_SetLow()             do { LATCbits.LATC0 = 0; } while(0)
+#define I_MOTOR_OL_Toggle()             do { LATCbits.LATC0 = ~LATCbits.LATC0; } while(0)
+#define I_MOTOR_OL_GetValue()           PORTCbits.RC0
+#define I_MOTOR_OL_SetDigitalInput()    do { TRISCbits.TRISC0 = 1; } while(0)
+#define I_MOTOR_OL_SetDigitalOutput()   do { TRISCbits.TRISC0 = 0; } while(0)
+
+// get/set I_MOTOR_TRIP aliases
+#define I_MOTOR_TRIP_TRIS                 TRISCbits.TRISC1
+#define I_MOTOR_TRIP_LAT                  LATCbits.LATC1
+#define I_MOTOR_TRIP_PORT                 PORTCbits.RC1
+#define I_MOTOR_TRIP_SetHigh()            do { LATCbits.LATC1 = 1; } while(0)
+#define I_MOTOR_TRIP_SetLow()             do { LATCbits.LATC1 = 0; } while(0)
+#define I_MOTOR_TRIP_Toggle()             do { LATCbits.LATC1 = ~LATCbits.LATC1; } while(0)
+#define I_MOTOR_TRIP_GetValue()           PORTCbits.RC1
+#define I_MOTOR_TRIP_SetDigitalInput()    do { TRISCbits.TRISC1 = 1; } while(0)
+#define I_MOTOR_TRIP_SetDigitalOutput()   do { TRISCbits.TRISC1 = 0; } while(0)
+
+// get/set O_PWM_OUT aliases
+#define O_PWM_OUT_TRIS                 TRISCbits.TRISC2
+#define O_PWM_OUT_LAT                  LATCbits.LATC2
+#define O_PWM_OUT_PORT                 PORTCbits.RC2
+#define O_PWM_OUT_SetHigh()            do { LATCbits.LATC2 = 1; } while(0)
+#define O_PWM_OUT_SetLow()             do { LATCbits.LATC2 = 0; } while(0)
+#define O_PWM_OUT_Toggle()             do { LATCbits.LATC2 = ~LATCbits.LATC2; } while(0)
+#define O_PWM_OUT_GetValue()           PORTCbits.RC2
+#define O_PWM_OUT_SetDigitalInput()    do { TRISCbits.TRISC2 = 1; } while(0)
+#define O_PWM_OUT_SetDigitalOutput()   do { TRISCbits.TRISC2 = 0; } while(0)
 
 // get/set RC3 procedures
 #define RC3_SetHigh()            do { LATCbits.LATC3 = 1; } while(0)
@@ -292,6 +407,48 @@
 #define O_LCD_STRB_GetValue()           PORTDbits.RD7
 #define O_LCD_STRB_SetDigitalInput()    do { TRISDbits.TRISD7 = 1; } while(0)
 #define O_LCD_STRB_SetDigitalOutput()   do { TRISDbits.TRISD7 = 0; } while(0)
+
+// get/set I_PLC_REV aliases
+#define I_PLC_REV_TRIS                 TRISEbits.TRISE0
+#define I_PLC_REV_LAT                  LATEbits.LATE0
+#define I_PLC_REV_PORT                 PORTEbits.RE0
+#define I_PLC_REV_ANS                  ANSELbits.ANS5
+#define I_PLC_REV_SetHigh()            do { LATEbits.LATE0 = 1; } while(0)
+#define I_PLC_REV_SetLow()             do { LATEbits.LATE0 = 0; } while(0)
+#define I_PLC_REV_Toggle()             do { LATEbits.LATE0 = ~LATEbits.LATE0; } while(0)
+#define I_PLC_REV_GetValue()           PORTEbits.RE0
+#define I_PLC_REV_SetDigitalInput()    do { TRISEbits.TRISE0 = 1; } while(0)
+#define I_PLC_REV_SetDigitalOutput()   do { TRISEbits.TRISE0 = 0; } while(0)
+#define I_PLC_REV_SetAnalogMode()      do { ANSELbits.ANS5 = 1; } while(0)
+#define I_PLC_REV_SetDigitalMode()     do { ANSELbits.ANS5 = 0; } while(0)
+
+// get/set I_PLC_STOP aliases
+#define I_PLC_STOP_TRIS                 TRISEbits.TRISE1
+#define I_PLC_STOP_LAT                  LATEbits.LATE1
+#define I_PLC_STOP_PORT                 PORTEbits.RE1
+#define I_PLC_STOP_ANS                  ANSELbits.ANS6
+#define I_PLC_STOP_SetHigh()            do { LATEbits.LATE1 = 1; } while(0)
+#define I_PLC_STOP_SetLow()             do { LATEbits.LATE1 = 0; } while(0)
+#define I_PLC_STOP_Toggle()             do { LATEbits.LATE1 = ~LATEbits.LATE1; } while(0)
+#define I_PLC_STOP_GetValue()           PORTEbits.RE1
+#define I_PLC_STOP_SetDigitalInput()    do { TRISEbits.TRISE1 = 1; } while(0)
+#define I_PLC_STOP_SetDigitalOutput()   do { TRISEbits.TRISE1 = 0; } while(0)
+#define I_PLC_STOP_SetAnalogMode()      do { ANSELbits.ANS6 = 1; } while(0)
+#define I_PLC_STOP_SetDigitalMode()     do { ANSELbits.ANS6 = 0; } while(0)
+
+// get/set O_AUTO_MAN aliases
+#define O_AUTO_MAN_TRIS                 TRISEbits.TRISE2
+#define O_AUTO_MAN_LAT                  LATEbits.LATE2
+#define O_AUTO_MAN_PORT                 PORTEbits.RE2
+#define O_AUTO_MAN_ANS                  ANSELbits.ANS7
+#define O_AUTO_MAN_SetHigh()            do { LATEbits.LATE2 = 1; } while(0)
+#define O_AUTO_MAN_SetLow()             do { LATEbits.LATE2 = 0; } while(0)
+#define O_AUTO_MAN_Toggle()             do { LATEbits.LATE2 = ~LATEbits.LATE2; } while(0)
+#define O_AUTO_MAN_GetValue()           PORTEbits.RE2
+#define O_AUTO_MAN_SetDigitalInput()    do { TRISEbits.TRISE2 = 1; } while(0)
+#define O_AUTO_MAN_SetDigitalOutput()   do { TRISEbits.TRISE2 = 0; } while(0)
+#define O_AUTO_MAN_SetAnalogMode()      do { ANSELbits.ANS7 = 1; } while(0)
+#define O_AUTO_MAN_SetDigitalMode()     do { ANSELbits.ANS7 = 0; } while(0)
 
 /**
    @Param
