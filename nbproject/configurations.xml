@@ -29,6 +29,9 @@
       </logicalFolder>
       <itemPath>tick_keyboard.h</itemPath>
       <itemPath>display_lcd.h</itemPath>
+      <itemPath>valve_position.h</itemPath>
+      <itemPath>eeprom_wrapper.h</itemPath>
+      <itemPath>pwm_handler.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -69,6 +72,8 @@
       <itemPath>main.c</itemPath>
       <itemPath>tick_keyboard.c</itemPath>
       <itemPath>display_lcd.c</itemPath>
+      <itemPath>eeprom_wrapper.c</itemPath>
+      <itemPath>pwm_handler.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

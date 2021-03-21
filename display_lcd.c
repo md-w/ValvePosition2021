@@ -5,103 +5,52 @@
 
 unsigned char dispBuffer[DISP_MODULE_SIZE] = {0,};
 
-#define EnableLCD() 		O_LCD_EN_SetHigh()
-#define DisableLCD()		O_LCD_EN_SetLow()
-
-void SPIStrobeLCD(void) {
+void displayShiftStrobe(void) {
     O_LCD_STRB_SetHigh();
-    DELAY_microseconds(32);
+    DELAY_microseconds(3);
     O_LCD_STRB_SetLow();
 }
 
-void displayShiftInit(void) {
-    DisableLCD();
-    SPI_Initialize();
-    SPI_Open(MASTER0_CONFIG);
+void LCDEnableStrobe(void) {
+    O_LCD_EN_SetLow();
+    DELAY_microseconds(3);
+    O_LCD_EN_SetHigh();
 }
 
 void displayShift(void) {
     SPI_WriteBlock(dispBuffer, DISP_MODULE_SIZE);
-    SPIStrobeLCD();
-    EnableLCD();
-	DELAY_milliseconds(2);
-	DisableLCD();
-}
-
-void directAssignLCD(unsigned char segmentValue, unsigned char digitNo) {
-    dispBuffer[digitNo + LCD_DISP_OFFSET] = segmentValue;
-    dispBuffer[1 + LCD_DISP_OFFSET] &= ~0x40;
-}
-
-void directAssignLED(unsigned char segmentValue, unsigned char digitNo) {
-    if (digitNo < (DISP_MODULE_SIZE - LED_DISP_OFFSET))
-        dispBuffer[digitNo + LED_DISP_OFFSET] = segmentValue;
-}
-
-void directOrWithDisplayLED(unsigned char segmentValue, unsigned char digitNo) {
-    if (digitNo < (DISP_MODULE_SIZE - LED_DISP_OFFSET))
-        dispBuffer[digitNo + LED_DISP_OFFSET] = dispBuffer[digitNo + LED_DISP_OFFSET] | segmentValue;
-}
-
-void directAndWithDisplayLED(unsigned char segmentValue, unsigned char digitNo) {
-    if (digitNo < (DISP_MODULE_SIZE - LED_DISP_OFFSET))
-        dispBuffer[digitNo + LED_DISP_OFFSET] = dispBuffer[digitNo + LED_DISP_OFFSET] & segmentValue;
+    displayShiftStrobe();
 }
 
 void sendCommandByteToLCD(unsigned char commandByte) {
-    dispBuffer[0 + LCD_DISP_OFFSET] = commandByte;
-    dispBuffer[1 + LCD_DISP_OFFSET] &= ~0x80;
+    dispBuffer[1] = commandByte;
+    dispBuffer[0] &= ~0x80;
     displayShift();
+    LCDEnableStrobe();
 }
 
 void sendDataByteToLCD(unsigned char dataByte) {
-    dispBuffer[0 + LCD_DISP_OFFSET] = dataByte;
-    dispBuffer[1 + LCD_DISP_OFFSET] |= ~0x80;
+    dispBuffer[1] = dataByte;
+    dispBuffer[0] |= 0x80;
+    displayShift();
+    LCDEnableStrobe();
+}
+
+void directAssignLED(unsigned char segmentValue, unsigned char digitNo) {
+    unsigned char LCD_RS_BIT = dispBuffer[digitNo] & 0x80;
+    dispBuffer[0] = LCD_RS_BIT | (segmentValue & ~0x80);
     displayShift();
 }
 
-void initLCD(void) {
-    displayShiftInit();
-    DELAY_milliseconds(25);
-    sendCommandByteToLCD(0x38); //16 bit mode double line.
-    DELAY_milliseconds(25);
-    sendCommandByteToLCD(0x38);
-    DELAY_milliseconds(25);
-    sendCommandByteToLCD(0x38);
-
-    //sendCommandByteToLCD(0x0F);	////on display + blink cursor cursor
-
-    sendCommandByteToLCD(0x0C); ////on display + hide cursor
-    DELAY_milliseconds(25);
-    sendCommandByteToLCD(0x02); //return cursor to home position
-    DELAY_milliseconds(25);
-    sendCommandByteToLCD(0x01); //clear display
-    DELAY_milliseconds(25);
+void directOrWithDisplayLED(unsigned char segmentValue, unsigned char digitNo) {
+    dispBuffer[0] |= (segmentValue & ~0x80);
+    displayShift();
 }
 
-void resetLCD16x2(void) {
-    //	sendCommandByteToLCD(0x38);	//16 bit mode double line.
-    //	DelayMs(5);
-    //	sendCommandByteToLCD(0x38);
-    //	DelayMs(5);
-    dispBuffer[1 + LCD_DISP_OFFSET] |= 0x40;
+void directAndWithDisplayLED(unsigned char segmentValue, unsigned char digitNo) {
+    dispBuffer[0] &= (segmentValue | 0x80);
     displayShift();
-    DELAY_milliseconds(20);
-    dispBuffer[1 + LCD_DISP_OFFSET] &= ~0x40;
-    displayShift();
-    DELAY_milliseconds(5);
-    sendCommandByteToLCD(0x38);
-    DELAY_milliseconds(5);
-    sendCommandByteToLCD(0x38);
-    DELAY_milliseconds(5);
-    sendCommandByteToLCD(0x38);
-    DELAY_milliseconds(5);
-    sendCommandByteToLCD(0x0C); //on display + hide cursor
-    DELAY_milliseconds(5);
-    sendCommandByteToLCD(0x02);
-    DELAY_milliseconds(5);
-    sendCommandByteToLCD(0x01); //clear display
-    DELAY_milliseconds(5);
+    //dispBuffer[digitNo + LED_DISP_OFFSET] = dispBuffer[digitNo + LED_DISP_OFFSET] & (segmentValue | LCD_EN_MASK);
 }
 
 void gotoRCLcd(unsigned char lineNo, unsigned char col) {
@@ -125,14 +74,29 @@ void gotoRCLcd(unsigned char lineNo, unsigned char col) {
     }
 }
 
-void gotoHomeLCD(void) { //and clear
-    //	sendCommandByteToLCD(0x01);	//clear display
+void resetLCD(void) {
+    sendCommandByteToLCD(0x38); //16 bit mode double line.
+    DELAY_milliseconds(5);
+    sendCommandByteToLCD(0x38);
+    DELAY_milliseconds(5);
+    sendCommandByteToLCD(0x38);
+
+    //sendCommandByteToLCD(0x0F);	////on display + blink cursor cursor
+
+    sendCommandByteToLCD(0x0C); ////on display + hide cursor
+    DELAY_milliseconds(5);
+    sendCommandByteToLCD(0x02); //return cursor to home position
+    DELAY_milliseconds(5);
+    sendCommandByteToLCD(0x01); //clear display
+    DELAY_milliseconds(5);
+}
+
+void gotoHomeLCD(void) {
     sendCommandByteToLCD(0x02); //return cursor to home position
 }
 
 void clearLCD(void) {
     sendCommandByteToLCD(0x01); //clear display
-    DELAY_milliseconds(5);
 }
 
 void putCharLCD(char byte) {
@@ -146,8 +110,13 @@ void putBlank(char byte, char number) {
     }
 }
 
-void putsRomLCD(char *s) {
-    putsLCD(s);
+void putsRomLCD(rom char *s) {
+    char i;
+    while (*s) {
+        i = *s;
+        putCharLCD(i);
+        s++;
+    }
 }
 
 void putsLCD(char *s) {
@@ -175,14 +144,14 @@ void putIntLCD(unsigned int hexData, unsigned char digitsToDisplay) {
             break;
 
         temp = (unsigned char) ((unsigned int) hexData % 10);
-        displayBuffer[i - 1 + LCD_DISP_OFFSET] = (unsigned char) (temp) + 0x30;
+        displayBuffer[i - 1] = (unsigned char) (temp) + 0x30;
         hexData = (hexData - (unsigned int) temp) / 10;
         if (hexData == 0) break;
         i++;
     }
 
     for (i = digitsToDisplay; i > 0; i--) {
-        putCharLCD(displayBuffer[i - 1 + LCD_DISP_OFFSET]);
+        putCharLCD(displayBuffer[i - 1]);
     }
 }
 
@@ -198,13 +167,13 @@ void putIntLCD0(unsigned int hexData, unsigned char digitsToDisplay) {
             break;
 
         temp = (unsigned char) ((unsigned int) hexData % 10);
-        displayBuffer[i - 1 + LCD_DISP_OFFSET] = (unsigned char) (temp) + 0x30;
+        displayBuffer[i - 1] = (unsigned char) (temp) + 0x30;
         hexData = (hexData - (unsigned int) temp) / 10;
         if (hexData == 0) break;
         i++;
     }
 
     for (i = digitsToDisplay; i > 0; i--) {
-        putCharLCD(displayBuffer[i - 1 + LCD_DISP_OFFSET]);
+        putCharLCD(displayBuffer[i - 1]);
     }
 }
