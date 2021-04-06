@@ -11,10 +11,10 @@
 #include "mcc_generated_files/pin_manager.h"
 #include "mcc_generated_files/tmr0.h"
 
-#define PROKEY_MASK 	0x01	//switch is not matching with demo board and final
-#define ENTERKEY_MASK 	0x02
-#define UPKEY_MASK 		0x04
-#define DNKEY_MASK 		0x08
+#define PROKEY_MASK 	0x08	//switch is not matching with demo board and final
+#define ENTERKEY_MASK 	0x04
+#define UPKEY_MASK 		0x02
+#define DNKEY_MASK 		0x01
 #define KEY_PRESS_COUNT		2
 
 #define TICKCOUNT250mSEC	5	//10

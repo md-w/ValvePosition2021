@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 
-
+void initPWM(void);
 void setPWMDuty(unsigned int iVal);
 
 #ifdef	__cplusplus

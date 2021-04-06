@@ -67,7 +67,7 @@ unsigned char adcFilterCount = FILTER_POINTS;
 void initVariables(void) {
     //SystemStatus.uiValvePostionSP = SystemStatus.uiValvePostion;
     //SystemStatus.uiValvePostionOutput = 
-    //readByte((unsigned char *)&SetPoint, 0, sizeof(SetPoint));
+    readByte((unsigned char *)&SetPoint, 0, sizeof(SetPoint));
 
     if ((SetPoint.ucHysteresis == 0) || (SetPoint.ucHysteresis > 100)) {
         SetPoint.ucHysteresis = 10;
@@ -639,6 +639,7 @@ void inputScanTask(void) {
         }
         adcFilterCount = FILTER_POINTS;
         unsigned int uiTemp = adcFilter / FILTER_POINTS;
+        adcFilter = 0;
         switch (scanState) {
             case 0: //uiValvePostionSPAuto
                 //3.175	->	1023
@@ -669,6 +670,7 @@ void inputScanTask(void) {
                 } else {
                     SystemStatus.uiValvePostion = 1000;
                 }
+                SystemStatus.uiValvePostion = uiTemp;
                 scanState = 0;
                 ADC_SelectChannel(scanState);
                 break;
@@ -744,7 +746,7 @@ void DigitalInputScan(void) {
     } else {
         SystemStatus.plc.bits.isPlcForwardCommand = 0;
     }
-    if (!I_PLC_FORWD_GetValue()) {
+    if (!I_PLC_REV_GetValue()) {
         SystemStatus.plc.bits.isPlcReverseCommand = 1;
     } else {
         SystemStatus.plc.bits.isPlcReverseCommand = 0;
@@ -917,7 +919,12 @@ void main(void) {
     putsRomLCD((rom char*) "Power on test..");
     gotoRCLcd(1, 0);
     putsRomLCD((rom char*) "...............");
+	initVariables();
+	SystemOutput();
+    initPWM();
+	setPWMDuty(204);
     ClrWdt();
+    
     while (1) {
         if (tick100mSec) {
             tick100mSec = 0;
