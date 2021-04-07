@@ -7,7 +7,7 @@
 
 #ifndef DISPLAY_LCD_H
 #define	DISPLAY_LCD_H
-#define DISP_MODULE_SIZE    3
+#define DISP_MODULE_SIZE    2
 //#define LED_DISP_OFFSET     0 //This is not working use with caution
 //#define LCD_DISP_OFFSET     1
 #define rom const

@@ -929,6 +929,7 @@ void main(void) {
         if (tick100mSec) {
             tick100mSec = 0;
             inputScanTask();
+            DigitalInputScan();
         }
         switch (dispMainState) {
             case 0:
