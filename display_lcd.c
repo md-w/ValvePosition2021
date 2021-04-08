@@ -23,32 +23,43 @@ void displayShift(void) {
 }
 
 void sendCommandByteToLCD(unsigned char commandByte) {
-    dispBuffer[1] = commandByte;
-    dispBuffer[0] &= ~0x80;
+    dispBuffer[2] = commandByte;
+    dispBuffer[1] &= ~0x80;
     displayShift();
     LCDEnableStrobe();
 }
 
 void sendDataByteToLCD(unsigned char dataByte) {
-    dispBuffer[1] = dataByte;
-    dispBuffer[0] |= 0x80;
+    dispBuffer[2] = dataByte;
+    dispBuffer[1] |= 0x80;
     displayShift();
     LCDEnableStrobe();
 }
 
 void directAssignLED(unsigned char segmentValue, unsigned char digitNo) {
     unsigned char LCD_RS_BIT = dispBuffer[digitNo] & 0x80;
-    dispBuffer[0] = LCD_RS_BIT | (segmentValue & ~0x80);
+    dispBuffer[1] = LCD_RS_BIT | (segmentValue & ~0x80);
+    displayShift();
+}
+
+void directAssignLED0(unsigned char segmentValue) {
+    unsigned char LCD_RS_BIT = dispBuffer[1] & 0x80;
+    dispBuffer[1] = LCD_RS_BIT | (segmentValue & ~0x80);
+    displayShift();
+}
+
+void directAssignLED2(unsigned char segmentValue) {
+    dispBuffer[0] = segmentValue;
     displayShift();
 }
 
 void directOrWithDisplayLED(unsigned char segmentValue, unsigned char digitNo) {
-    dispBuffer[0] |= (segmentValue & ~0x80);
+    dispBuffer[1] |= (segmentValue & ~0x80);
     displayShift();
 }
 
 void directAndWithDisplayLED(unsigned char segmentValue, unsigned char digitNo) {
-    dispBuffer[0] &= (segmentValue | 0x80);
+    dispBuffer[1] &= (segmentValue | 0x80);
     displayShift();
     //dispBuffer[digitNo + LED_DISP_OFFSET] = dispBuffer[digitNo + LED_DISP_OFFSET] & (segmentValue | LCD_EN_MASK);
 }

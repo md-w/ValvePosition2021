@@ -63,6 +63,7 @@ ST_SYS_CALIBRATION SystemCal;
 unsigned char scanState = 0;
 unsigned int adcFilter = 0;
 unsigned char adcFilterCount = FILTER_POINTS;
+RELAY_OUT RelayOut;
 
 void initVariables(void) {
     //SystemStatus.uiValvePostionSP = SystemStatus.uiValvePostion;
@@ -95,6 +96,7 @@ void initVariables(void) {
     if ((0 == SystemCal.ValvePostionOutput.ucZero) || (SystemCal.ValvePostionOutput.ucZero > 200)) {
         SystemCal.ValvePostionOutput.ucZero = FIXED_ZERO;
     }
+    RelayOut.ucValue = 0x00;
 }
 
 void displaySubStateMachineScan(void) {
@@ -760,43 +762,60 @@ void DigitalInputScan(void) {
 }
 
 void SystemOutput(void) {
+    
     if (SystemStatus.status.bits.isMoveForward) {
+        RelayOut.bits.RELAY_OUT_FORWARD = 1;
+        RelayOut.bits.RELAY_OUT_REVERSE = 0;
 //        O_ = 1;
 //        RELAY_OUT_REVERSE = 0;
     } else if (SystemStatus.status.bits.isMoveReverse) {
 //        RELAY_OUT_FORWARD = 0;
 //        RELAY_OUT_REVERSE = 1;
+        RelayOut.bits.RELAY_OUT_FORWARD = 0;
+        RelayOut.bits.RELAY_OUT_REVERSE = 1;
     } else {
 //        RELAY_OUT_FORWARD = 0;
 //        RELAY_OUT_REVERSE = 0;
+        RelayOut.bits.RELAY_OUT_FORWARD = 0;
+        RelayOut.bits.RELAY_OUT_REVERSE = 0;
         //SystemStatus.status.bits.isStop = 1;
     }
     if (SystemStatus.digital.bits.isRemoteOrLocalMode) {
-        O_AUTO_MAN_SetHigh();
+        RelayOut.bits.AUTO_MAN = 1;
+
+        //O_AUTO_MAN_SetHigh();
     } else {
-        O_AUTO_MAN_SetLow();
+        //O_AUTO_MAN_SetLow();
+        RelayOut.bits.AUTO_MAN = 0;
     }
+    directAssignLED2(RelayOut.ucValue);
 }
 
 void LEDOutput(void) {
     unsigned char ucLEDStatus = 0x00;
     if (SystemStatus.status.bits.isMoveForward) {
-        ucLEDStatus |= 0x01;
+        ucLEDStatus |= 0x20;
+        //ucLEDStatus |= 0x01;
     }
     if (SystemStatus.status.bits.isMoveReverse) {
-        ucLEDStatus |= 0x02;
+        ucLEDStatus |= 0x10;
+        //ucLEDStatus |= 0x02;
     }
     if (SystemStatus.status.bits.isStop) {
-        ucLEDStatus |= 0x04;
+        ucLEDStatus |= 0x08;
+        //ucLEDStatus |= 0x04;
     }
     if (SystemStatus.digital.bits.isValveFullOpen) {
-        ucLEDStatus |= 0x08;
+        ucLEDStatus |= 0x04;
+        //ucLEDStatus |= 0x08;
     }
     if (SystemStatus.digital.bits.isValveFullClose) {
-        ucLEDStatus |= 0x10;
+        ucLEDStatus |= 0x02;
+        //ucLEDStatus |= 0x10;
     }
     if (SystemStatus.digital.bits.isRemoteOrLocalMode) {
-        ucLEDStatus |= 0x20;
+        ucLEDStatus |= 0x01;
+        //ucLEDStatus |= 0x20;
     }
     directAssignLED(ucLEDStatus, 0);
 }
@@ -930,6 +949,10 @@ void main(void) {
             tick100mSec = 0;
             inputScanTask();
             DigitalInputScan();
+        }
+        if (tick6min) {
+            tick6min = 0;
+            resetLCD();            
         }
         switch (dispMainState) {
             case 0:

@@ -98,6 +98,20 @@ extern "C" {
         ST_CAL ValvePostionSPAuto;
         ST_CAL ValvePostionOutput;
     } ST_SYS_CALIBRATION;
+    
+    typedef union _RELAY_OUT {
+
+        struct {
+            unsigned int RELAY_OUT_FORWARD : 1;
+            unsigned int RELAY_OUT_REVERSE : 1;
+            unsigned int AUTO_MAN : 1;
+            unsigned int b4 : 1;
+
+            //unsigned int isSwForwardCommandHold: 	1;
+            //unsigned int isSwReverseCommandHold: 	1;
+        } bits;
+        unsigned char ucValue;
+    } RELAY_OUT;
 #ifdef	__cplusplus
 }
 #endif

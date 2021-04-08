@@ -7,7 +7,7 @@
 
 #ifndef DISPLAY_LCD_H
 #define	DISPLAY_LCD_H
-#define DISP_MODULE_SIZE    2
+#define DISP_MODULE_SIZE    3
 //#define LED_DISP_OFFSET     0 //This is not working use with caution
 //#define LCD_DISP_OFFSET     1
 #define rom const
@@ -16,6 +16,8 @@ extern "C" {
 #endif
 
     void directAssignLED(unsigned char segmentValue, unsigned char digitNo);
+    void directAssignLED0(unsigned char segmentValue);
+    void directAssignLED2(unsigned char segmentValue);
     void directOrWithDisplayLED(unsigned char segmentValue, unsigned char digitNo);
     void directAndWithDisplayLED(unsigned char segmentValue, unsigned char digitNo);
     void gotoRCLcd(unsigned char lineNo, unsigned char col);
