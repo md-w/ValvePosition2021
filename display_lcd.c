@@ -86,6 +86,9 @@ void gotoRCLcd(unsigned char lineNo, unsigned char col) {
 }
 
 void resetLCD(void) {
+    O_LCD_PWR_SetLow();
+    DELAY_milliseconds(5);
+    O_LCD_PWR_SetHigh();
     sendCommandByteToLCD(0x38); //16 bit mode double line.
     DELAY_milliseconds(5);
     sendCommandByteToLCD(0x38);

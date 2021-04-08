@@ -672,7 +672,6 @@ void inputScanTask(void) {
                 } else {
                     SystemStatus.uiValvePostion = 1000;
                 }
-                SystemStatus.uiValvePostion = uiTemp;
                 scanState = 0;
                 ADC_SelectChannel(scanState);
                 break;
@@ -950,12 +949,12 @@ void main(void) {
             inputScanTask();
             DigitalInputScan();
         }
-        if (tick6min) {
-            tick6min = 0;
-            resetLCD();            
-        }
         switch (dispMainState) {
             case 0:
+                if (tick6min) {
+                    tick6min = 0;
+                    resetLCD();            
+                }
                 controllerAlgo();
                 displaySubStateMachineScan();
                 if (keyDown & PROKEY_MASK) {

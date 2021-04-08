@@ -386,6 +386,17 @@
 #define I_SW4_SetDigitalInput()    do { TRISDbits.TRISD4 = 1; } while(0)
 #define I_SW4_SetDigitalOutput()   do { TRISDbits.TRISD4 = 0; } while(0)
 
+// get/set O_LCD_PWR aliases
+#define O_LCD_PWR_TRIS                 TRISDbits.TRISD5
+#define O_LCD_PWR_LAT                  LATDbits.LATD5
+#define O_LCD_PWR_PORT                 PORTDbits.RD5
+#define O_LCD_PWR_SetHigh()            do { LATDbits.LATD5 = 1; } while(0)
+#define O_LCD_PWR_SetLow()             do { LATDbits.LATD5 = 0; } while(0)
+#define O_LCD_PWR_Toggle()             do { LATDbits.LATD5 = ~LATDbits.LATD5; } while(0)
+#define O_LCD_PWR_GetValue()           PORTDbits.RD5
+#define O_LCD_PWR_SetDigitalInput()    do { TRISDbits.TRISD5 = 1; } while(0)
+#define O_LCD_PWR_SetDigitalOutput()   do { TRISDbits.TRISD5 = 0; } while(0)
+
 // get/set O_LCD_EN aliases
 #define O_LCD_EN_TRIS                 TRISDbits.TRISD6
 #define O_LCD_EN_LAT                  LATDbits.LATD6
