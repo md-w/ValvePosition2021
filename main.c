@@ -68,7 +68,7 @@ RELAY_OUT RelayOut;
 void initVariables(void) {
     //SystemStatus.uiValvePostionSP = SystemStatus.uiValvePostion;
     //SystemStatus.uiValvePostionOutput = 
-    readByte((unsigned char *)&SetPoint, 0, sizeof(SetPoint));
+    readByte((unsigned char *) &SetPoint, 0, sizeof (SetPoint));
 
     if ((SetPoint.ucHysteresis == 0) || (SetPoint.ucHysteresis > 100)) {
         SetPoint.ucHysteresis = 10;
@@ -761,20 +761,20 @@ void DigitalInputScan(void) {
 }
 
 void SystemOutput(void) {
-    
+
     if (SystemStatus.status.bits.isMoveForward) {
         RelayOut.bits.RELAY_OUT_FORWARD = 1;
         RelayOut.bits.RELAY_OUT_REVERSE = 0;
-//        O_ = 1;
-//        RELAY_OUT_REVERSE = 0;
+        //        O_ = 1;
+        //        RELAY_OUT_REVERSE = 0;
     } else if (SystemStatus.status.bits.isMoveReverse) {
-//        RELAY_OUT_FORWARD = 0;
-//        RELAY_OUT_REVERSE = 1;
+        //        RELAY_OUT_FORWARD = 0;
+        //        RELAY_OUT_REVERSE = 1;
         RelayOut.bits.RELAY_OUT_FORWARD = 0;
         RelayOut.bits.RELAY_OUT_REVERSE = 1;
     } else {
-//        RELAY_OUT_FORWARD = 0;
-//        RELAY_OUT_REVERSE = 0;
+        //        RELAY_OUT_FORWARD = 0;
+        //        RELAY_OUT_REVERSE = 0;
         RelayOut.bits.RELAY_OUT_FORWARD = 0;
         RelayOut.bits.RELAY_OUT_REVERSE = 0;
         //SystemStatus.status.bits.isStop = 1;
@@ -894,18 +894,26 @@ void controllerAlgo(void) {
             }
         } else {
             SystemStatus.uiValvePostionSP = SystemStatus.uiValvePostion;
-            if (isForward) {
-                SystemStatus.status.bits.isMoveForward = 1;
-                SystemStatus.status.bits.isMoveReverse = 0;
-                isReverse = 0;
-            } else if (isReverse) {
-                SystemStatus.status.bits.isMoveForward = 0;
-                SystemStatus.status.bits.isMoveReverse = 1;
-                isForward = 0;
-            } else {
-                SystemStatus.status.bits.isMoveForward = 0;
-                SystemStatus.status.bits.isMoveReverse = 0;
-            }
+            //            if (isForward) {
+            //                SystemStatus.status.bits.isMoveForward = 1;
+            //                SystemStatus.status.bits.isMoveReverse = 0;
+            //                isReverse = 0;
+            //            } else if (isReverse) {
+            //                SystemStatus.status.bits.isMoveForward = 0;
+            //                SystemStatus.status.bits.isMoveReverse = 1;
+            //                isForward = 0;
+            //            } else {
+            //                SystemStatus.status.bits.isMoveForward = 0;
+            //                SystemStatus.status.bits.isMoveReverse = 0;
+            //            }
+        }
+        if (isForward) {
+            SystemStatus.status.bits.isMoveForward = 1;
+            SystemStatus.status.bits.isMoveReverse = 0;
+        }
+        if (isReverse) {
+            SystemStatus.status.bits.isMoveForward = 0;
+            SystemStatus.status.bits.isMoveReverse = 1;
         }
     }
     LEDOutput();
@@ -937,12 +945,12 @@ void main(void) {
     putsRomLCD((rom char*) "Power on test..");
     gotoRCLcd(1, 0);
     putsRomLCD((rom char*) "...............");
-	initVariables();
-	SystemOutput();
+    initVariables();
+    SystemOutput();
     initPWM();
-	setPWMDuty(204);
+    setPWMDuty(204);
     ClrWdt();
-    
+
     while (1) {
         if (tick100mSec) {
             tick100mSec = 0;
@@ -953,7 +961,7 @@ void main(void) {
             case 0:
                 if (tick6min) {
                     tick6min = 0;
-                    resetLCD();            
+                    resetLCD();
                 }
                 controllerAlgo();
                 displaySubStateMachineScan();
