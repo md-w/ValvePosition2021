@@ -26,6 +26,11 @@ extern "C" {
             unsigned int isSwStopCommand : 1;
             unsigned int b4 : 1;
 
+            unsigned int isSwForwardCommandHist : 1;
+            unsigned int isSwReverseCommandHist : 1;
+            unsigned int isSwStopCommandHist : 1;
+            unsigned int b8 : 1;
+
             //unsigned int isSwForwardCommandHold: 	1;
             //unsigned int isSwReverseCommandHold: 	1;
         } bits;
@@ -54,6 +59,10 @@ extern "C" {
             unsigned int isPlcReverseCommand : 1;
             unsigned int isPlcStopCommand : 1;
             unsigned int b4 : 1;
+            unsigned int isPlcForwardCommandHist : 1;
+            unsigned int isPlcReverseCommandHist : 1;
+            unsigned int isPlcStopCommandHist : 1;
+            unsigned int b8 : 1;
 
             //unsigned int isPlcForwardCommandHold:	1;
             //unsigned int isPlcReverseCommandHold:	1;
