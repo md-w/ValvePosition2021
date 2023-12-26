@@ -700,16 +700,16 @@ void DigitalInputScan(void) {
     } else {
         SystemStatus.sw.bits.isSwStopCommand = 0;
     }
-    if (SystemStatus.sw.bits.isSwStopCommandHist && SystemStatus.sw.bits.isSwStopCommand) { //stop continuing so override all commands
-        SystemStatus.sw.bits.isSwForwardCommand = 0;
-        SystemStatus.sw.bits.isSwReverseCommand = 0;
-    }
-    if (SystemStatus.sw.bits.isSwForwardCommandHist && SystemStatus.sw.bits.isSwForwardCommand) { //forward continuing so override all commands
-        SystemStatus.sw.bits.isSwReverseCommand = 0;
-    }
-    if (SystemStatus.sw.bits.isSwReverseCommandHist && SystemStatus.sw.bits.isSwReverseCommand) { //reverse continuing so override all commands
-        SystemStatus.sw.bits.isSwForwardCommand = 0;
-    }
+//    if (SystemStatus.sw.bits.isSwStopCommandHist && SystemStatus.sw.bits.isSwStopCommand) { //stop continuing so override all commands
+//        SystemStatus.sw.bits.isSwForwardCommand = 0;
+//        SystemStatus.sw.bits.isSwReverseCommand = 0;
+//    }
+//    if (SystemStatus.sw.bits.isSwForwardCommandHist && SystemStatus.sw.bits.isSwForwardCommand) { //forward continuing so override all commands
+//        SystemStatus.sw.bits.isSwReverseCommand = 0;
+//    }
+//    if (SystemStatus.sw.bits.isSwReverseCommandHist && SystemStatus.sw.bits.isSwReverseCommand) { //reverse continuing so override all commands
+//        SystemStatus.sw.bits.isSwForwardCommand = 0;
+//    }
     SystemStatus.sw.bits.isSwStopCommandHist = SystemStatus.sw.bits.isSwStopCommand;
     SystemStatus.sw.bits.isSwForwardCommandHist = SystemStatus.sw.bits.isSwForwardCommand;
     SystemStatus.sw.bits.isSwReverseCommandHist = SystemStatus.sw.bits.isSwReverseCommand;
