@@ -700,16 +700,16 @@ void DigitalInputScan(void) {
     } else {
         SystemStatus.sw.bits.isSwStopCommand = 0;
     }
-//    if (SystemStatus.sw.bits.isSwStopCommandHist && SystemStatus.sw.bits.isSwStopCommand) { //stop continuing so override all commands
-//        SystemStatus.sw.bits.isSwForwardCommand = 0;
-//        SystemStatus.sw.bits.isSwReverseCommand = 0;
-//    }
-//    if (SystemStatus.sw.bits.isSwForwardCommandHist && SystemStatus.sw.bits.isSwForwardCommand) { //forward continuing so override all commands
-//        SystemStatus.sw.bits.isSwReverseCommand = 0;
-//    }
-//    if (SystemStatus.sw.bits.isSwReverseCommandHist && SystemStatus.sw.bits.isSwReverseCommand) { //reverse continuing so override all commands
-//        SystemStatus.sw.bits.isSwForwardCommand = 0;
-//    }
+    if (SystemStatus.sw.bits.isSwStopCommandHist && SystemStatus.sw.bits.isSwStopCommand) { //stop continuing so override all commands
+        SystemStatus.sw.bits.isSwForwardCommand = 0;
+        SystemStatus.sw.bits.isSwReverseCommand = 0;
+    }
+    if (SystemStatus.sw.bits.isSwForwardCommandHist && SystemStatus.sw.bits.isSwForwardCommand) { //forward continuing so override all commands
+        SystemStatus.sw.bits.isSwReverseCommand = 0;
+    }
+    if (SystemStatus.sw.bits.isSwReverseCommandHist && SystemStatus.sw.bits.isSwReverseCommand) { //reverse continuing so override all commands
+        SystemStatus.sw.bits.isSwForwardCommand = 0;
+    }
     SystemStatus.sw.bits.isSwStopCommandHist = SystemStatus.sw.bits.isSwStopCommand;
     SystemStatus.sw.bits.isSwForwardCommandHist = SystemStatus.sw.bits.isSwForwardCommand;
     SystemStatus.sw.bits.isSwReverseCommandHist = SystemStatus.sw.bits.isSwReverseCommand;
@@ -896,15 +896,20 @@ void controllerAlgo(void) {
             SystemStatus.status.bits.isStop = 0; //remove latch
         }
     }
-    if (SystemStatus.digital.bits.isTorqueFullOpen ||
-            SystemStatus.digital.bits.isTorqueFullClose ||
-            SystemStatus.digital.bits.isValveFullOpen ||
-            SystemStatus.digital.bits.isValveFullClose ||
-            SystemStatus.digital.bits.isMotorTempTrip ||
+    
+    if (SystemStatus.digital.bits.isTorqueFullOpen || SystemStatus.digital.bits.isValveFullOpen) {
+        SystemStatus.status.bits.isMoveForward = 0;
+    }
+    
+    if (SystemStatus.digital.bits.isTorqueFullClose || SystemStatus.digital.bits.isValveFullClose) {
+        SystemStatus.status.bits.isMoveReverse = 0;
+    }
+
+    if (SystemStatus.digital.bits.isMotorTempTrip ||
             SystemStatus.digital.bits.isMotorOL) {
         SystemStatus.status.bits.isStop = 1;
     }
-
+    
     if (SystemStatus.status.bits.isStop) {
         SystemStatus.status.bits.isMoveForward = 0;
         SystemStatus.status.bits.isMoveReverse = 0;
