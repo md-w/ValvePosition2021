@@ -784,7 +784,7 @@ void DigitalInputScan(void) {
     SystemStatus.plc.bits.isPlcStopCommandHist = SystemStatus.plc.bits.isPlcStopCommand;
     SystemStatus.plc.bits.isPlcForwardCommandHist = SystemStatus.plc.bits.isPlcForwardCommand;
     SystemStatus.plc.bits.isPlcReverseCommandHist = SystemStatus.plc.bits.isPlcReverseCommand;
-    
+
 
 }
 
@@ -853,6 +853,14 @@ void controllerAlgo(void) {
     //SystemStatus.status.bits.isStop = 0;
     unsigned char isForward = 0x00;
     unsigned char isReverse = 0x00;
+
+    if (SystemStatus.digital.bits.isTorqueFullOpen || SystemStatus.digital.bits.isValveFullOpen
+            || SystemStatus.digital.bits.isTorqueFullClose || SystemStatus.digital.bits.isValveFullClose
+            || SystemStatus.digital.bits.isMotorTempTrip ||
+            SystemStatus.digital.bits.isMotorOL) {
+        SystemStatus.status.bits.isStop = 1;
+    }
+
     if (SystemStatus.digital.bits.isRemoteOrLocalMode) { //remote
         if (SetPoint.isAnalogOrDigitalMode) {
             //			if(SystemStatus.uiValvePostionSP < SystemStatus.uiValvePostionSPAuto){
@@ -896,20 +904,7 @@ void controllerAlgo(void) {
             SystemStatus.status.bits.isStop = 0; //remove latch
         }
     }
-    
-    if (SystemStatus.digital.bits.isTorqueFullOpen || SystemStatus.digital.bits.isValveFullOpen) {
-        SystemStatus.status.bits.isMoveForward = 0;
-    }
-    
-    if (SystemStatus.digital.bits.isTorqueFullClose || SystemStatus.digital.bits.isValveFullClose) {
-        SystemStatus.status.bits.isMoveReverse = 0;
-    }
 
-    if (SystemStatus.digital.bits.isMotorTempTrip ||
-            SystemStatus.digital.bits.isMotorOL) {
-        SystemStatus.status.bits.isStop = 1;
-    }
-    
     if (SystemStatus.status.bits.isStop) {
         SystemStatus.status.bits.isMoveForward = 0;
         SystemStatus.status.bits.isMoveReverse = 0;
