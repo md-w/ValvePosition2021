@@ -855,6 +855,94 @@ void controllerAlgo(void) {
     unsigned char isReverse = 0x00;
 
     if (SystemStatus.digital.bits.isTorqueFullOpen || SystemStatus.digital.bits.isValveFullOpen
+            || SystemStatus.digital.bits.isTorqueFullClose || SystemStatus.digital.bits.isValveFullClose) {
+        SystemStatus.status.bits.isStop = 1;
+    }
+
+    if (SystemStatus.digital.bits.isRemoteOrLocalMode) { //remote
+        if (SetPoint.isAnalogOrDigitalMode) {
+            SystemStatus.uiValvePostionSP = SystemStatus.uiValvePostionSPAuto;
+            if (SystemStatus.uiValvePostion > (SystemStatus.uiValvePostionSP + (unsigned int) SetPoint.ucHysteresis)) {
+                isForward = 1;
+                SystemStatus.status.bits.isStop = 0; //remove latch
+            } else if ((SystemStatus.uiValvePostion + (unsigned int) SetPoint.ucHysteresis) < SystemStatus.uiValvePostionSP) {
+                isReverse = 1;
+                SystemStatus.status.bits.isStop = 0; //remove latch
+            } else {
+                isForward = 0;
+                isReverse = 0;
+                SystemStatus.status.bits.isStop = 1; //latch
+            }            
+        } else {
+            SystemStatus.uiValvePostionSP = SystemStatus.uiValvePostion;
+            if (SystemStatus.plc.bits.isPlcStopCommand) {
+                isForward = 0;
+                isReverse = 0;
+                SystemStatus.status.bits.isStop = 1; //latch
+            } else if (SystemStatus.plc.bits.isPlcForwardCommand) {
+                isForward = 1;
+                SystemStatus.status.bits.isStop = 0; //remove latch
+            } else if (SystemStatus.plc.bits.isPlcReverseCommand) {
+                isReverse = 1;
+                SystemStatus.status.bits.isStop = 0; //remove latch
+            }
+        }
+    } else { //local
+        SystemStatus.uiValvePostionSP = SystemStatus.uiValvePostion;
+        if (SystemStatus.sw.bits.isSwStopCommand) {
+            isForward = 0;
+            isReverse = 0;
+            SystemStatus.status.bits.isStop = 1; //latch
+        } else if (SystemStatus.sw.bits.isSwForwardCommand) {
+            isForward = 1;
+            SystemStatus.status.bits.isStop = 0; //remove latch
+        } else if (SystemStatus.sw.bits.isSwReverseCommand) {
+            isReverse = 1;
+            SystemStatus.status.bits.isStop = 0; //remove latch
+        }
+    }
+
+    if (isForward) {
+        SystemStatus.status.bits.isMoveForward = 1;
+        SystemStatus.status.bits.isMoveReverse = 0;
+        isReverse = 0;
+    } else if (isReverse) {
+        SystemStatus.status.bits.isMoveForward = 0;
+        SystemStatus.status.bits.isMoveReverse = 1;
+        isForward = 0;
+    } else {
+        SystemStatus.status.bits.isMoveForward = 0;
+        SystemStatus.status.bits.isMoveReverse = 0;
+    }
+
+    if (SystemStatus.digital.bits.isMotorTempTrip || SystemStatus.digital.bits.isMotorOL) {
+        SystemStatus.status.bits.isStop = 1;
+    }
+
+    if (SystemStatus.status.bits.isStop) {
+        SystemStatus.status.bits.isMoveForward = 0;
+        SystemStatus.status.bits.isMoveReverse = 0;
+    }
+    
+    if (SystemStatus.digital.bits.isTorqueFullOpen || SystemStatus.digital.bits.isValveFullOpen) {
+        SystemStatus.status.bits.isMoveForward = 0;
+    }
+
+    if (SystemStatus.digital.bits.isTorqueFullClose || SystemStatus.digital.bits.isValveFullClose) {
+        SystemStatus.status.bits.isMoveReverse = 0;
+    }
+
+    LEDOutput();
+}
+
+void controllerAlgo1(void) {
+    //SystemStatus.status.bits.isMoveForward = 0;
+    //SystemStatus.status.bits.isMoveReverse = 0;
+    //SystemStatus.status.bits.isStop = 0;
+    unsigned char isForward = 0x00;
+    unsigned char isReverse = 0x00;
+
+    if (SystemStatus.digital.bits.isTorqueFullOpen || SystemStatus.digital.bits.isValveFullOpen
             || SystemStatus.digital.bits.isTorqueFullClose || SystemStatus.digital.bits.isValveFullClose
             || SystemStatus.digital.bits.isMotorTempTrip ||
             SystemStatus.digital.bits.isMotorOL) {
