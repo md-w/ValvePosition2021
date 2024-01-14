@@ -863,10 +863,10 @@ void controllerAlgo(void) {
         if (SetPoint.isAnalogOrDigitalMode) {
             SystemStatus.uiValvePostionSP = SystemStatus.uiValvePostionSPAuto;
             if (SystemStatus.uiValvePostion > (SystemStatus.uiValvePostionSP + (unsigned int) SetPoint.ucHysteresis)) {
-                isForward = 1;
+                isReverse = 1;
                 SystemStatus.status.bits.isStop = 0; //remove latch
             } else if ((SystemStatus.uiValvePostion + (unsigned int) SetPoint.ucHysteresis) < SystemStatus.uiValvePostionSP) {
-                isReverse = 1;
+                isForward = 1;
                 SystemStatus.status.bits.isStop = 0; //remove latch
             } else {
                 isForward = 0;
